@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {       
+        stage('Extract Data') {
+            steps {
+                script {
+                    sh 'python extract_data.py'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Job completed successfully'
+        }
+        failure {
+            echo 'Job failed'
+        }
+    }
+}
