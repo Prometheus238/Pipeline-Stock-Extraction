@@ -5,7 +5,7 @@ pipeline {
         stage('Extract Data') {
             steps {
                 script {
-                    sh 'python extract_data.py'
+                    sh 'python3 extract_data.py'
                 }
             }
         }
