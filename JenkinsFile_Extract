@@ -1,7 +1,18 @@
 pipeline {
     agent any
 
-    stages {       
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'pip3 install yfinance'
+                    sh 'pip3 install json'
+                    sh 'pip3 install psycopg2'
+                    sh 'pip3 install datetime'
+                }
+            }
+        }
+
         stage('Extract Data') {
             steps {
                 script {
