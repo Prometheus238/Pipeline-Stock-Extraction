@@ -1,7 +1,7 @@
 from datetime import datetime 
 import json
 import yfinance as yf
-import psycopg2
+import psycopg2 # type: ignore
 
 def get_stock_data(symbols, start_date, end_date):
     all_data = {}
