@@ -78,7 +78,7 @@ if __name__ == "__main__":
     conn = psycopg2.connect(database="stock"
                             ,user="postgres"
                             ,password="Reed2308*#"
-                            ,host="localhost"
+                            ,host="10.0.0.43"
                             ,port="5432")
 
     cursor = conn.cursor()
