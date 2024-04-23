@@ -5,10 +5,10 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'pip install yfinance'
-                    sh 'pip3 install json'
-                    sh 'pip3 install psycopg2'
-                    sh 'pip3 install datetime'
+                    sh 'pip install yfinance --break-system-packages'
+                    sh 'pip3 install json --break-system-packages'
+                    sh 'pip3 install psycopg2 --break-system-packages'
+                    sh 'pip3 install datetime --break-system-packages'
                 }
             }
         }
