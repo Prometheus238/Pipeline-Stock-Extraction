@@ -2,16 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    sh 'pip install yfinance --break-system-packages'
-                    sh 'pip3 install psycopg2 --break-system-packages'
-                    sh 'pip3 install datetime --break-system-packages'
-                }
-            }
-        }
-
         stage('Extract Data') {
             steps {
                 script {
