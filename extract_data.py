@@ -69,8 +69,8 @@ def insert_parsed_json(cursor, stock_data):
 if __name__ == "__main__":
     # Specify the list of stock symbols, start date, and end date
     stock_symbols = ["AAPL", "MSFT", "Meta", "NVDA", "GOOG", "AMZN", "INTC", "CRM", "TSM", "AMD"]
-    start_date = "2022-01-01"
-    end_date = "2022-12-31"
+    start_date = "2025-01-01"
+    end_date = "2025-07-31"
     
     # Call the function to fetch data
     stock_data = get_stock_data(stock_symbols, start_date, end_date)
