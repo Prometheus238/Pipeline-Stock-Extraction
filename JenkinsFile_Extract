@@ -1,22 +1,23 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10'
+        }
+    }
 
     stages {
         stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'pip install yfinance --break-system-packages'
-                    sh 'pip3 install psycopg2 --break-system-packages'
-                    sh 'pip3 install datetime --break-system-packages'
-                }
+                sh '''
+                    pip install yfinance
+                    pip install psycopg2-binary
+                '''
             }
         }
 
         stage('Extract Data') {
             steps {
-                script {
-                    sh 'python3 extract_data.py'
-                }
+                sh 'python extract_data.py'
             }
         }
     }
