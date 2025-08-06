@@ -2,18 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Python & Dependencies') {
+        stage('Install Dependencies') {
             steps {
-                sh '''
-                    which python3 || sudo apt update && sudo apt install -y python3 python3-pip
-                    pip3 install --user yfinance psycopg2-binary
-                '''
+                script {
+                    sh 'pip install yfinance --break-system-packages'
+                    sh 'pip3 install psycopg2 --break-system-packages'
+                    sh 'pip3 install datetime --break-system-packages'
+                }
             }
         }
 
         stage('Extract Data') {
             steps {
-                sh 'python3 extract_data.py'
+                script {
+                    sh 'python3 extract_data.py'
+                }
             }
         }
     }
