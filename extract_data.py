@@ -38,7 +38,7 @@ def insert_parsed_json(cursor, stock_data):
     try:
         # Create table if not exists
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS TABLE stock_data (
+            CREATE TABLE IF NOT EXISTS stock_data (
                 symbol VARCHAR(10),
                 date DATE,
                 open NUMERIC,
