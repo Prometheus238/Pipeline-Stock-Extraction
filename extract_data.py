@@ -36,7 +36,7 @@ def insert_raw_data(cursor, stock_data):
 
 def insert_parsed_json(cursor, stock_data):
     try:
-        # Create table if not exists
+        # Create table if it doesn't exist
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS stock_data (
                 symbol VARCHAR(10),
@@ -48,15 +48,25 @@ def insert_parsed_json(cursor, stock_data):
                 volume BIGINT
             )
         """)
-        
-        # Insert data into the table
-        for symbol, data in stock_data.items():
-            parsed_data = json.loads(data)  # Convert JSON string back to dictionary
-            for index, row in parsed_data.items():
-                # Convert date from milliseconds since epoch to PostgreSQL-compatible format
-                date = datetime.fromtimestamp(int(index) / 1000).strftime('%Y-%m-%d')
-                cursor.execute("INSERT INTO stock_data (symbol, date, open, high, low, close, volume) VALUES (%s, %s, %s, %s, %s, %s, %s)", (symbol, date, row['Open'], row['High'], row['Low'], row['Close'], row['Volume']))
-        
+
+        # Rename columns to lowercase to match table columns (optional but safer)
+        stock_data.rename(columns=str.lower, inplace=True)
+
+        # Insert data row by row
+        for index, row in stock_data.iterrows():
+            cursor.execute("""
+                INSERT INTO stock_data (symbol, date, open, high, low, close, volume)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (
+                symbol,
+                index.date(),         # date from the index
+                row['open'],
+                row['high'],
+                row['low'],
+                row['close'],
+                int(row['volume'])    # ensure volume is integer
+            ))
+
         print("Parsed stock data inserted successfully.")
 
     except Exception as e:
