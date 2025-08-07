@@ -23,7 +23,7 @@ def get_stock_data(symbols, start_date, end_date):
     
 def insert_raw_data(cursor, stock_data):
     try:
-        cursor.execute("CREATE TABLE raw_stock_data (symbol VARCHAR(10), raw JSONB)")
+        cursor.execute("CREATE OR REPLACE TABLE raw_stock_data (symbol VARCHAR(10), raw JSONB)")
 
         for symbol, data in stock_data.items():
             cursor.execute("INSERT INTO raw_stock_data (symbol, raw) VALUES (%s, %s)", (symbol, json.dumps(data)))
@@ -38,7 +38,7 @@ def insert_parsed_json(cursor, stock_data):
     try:
         # Create table if not exists
         cursor.execute("""
-            CREATE TABLE stock_data (
+            CREATE OR REPLACE TABLE stock_data (
                 symbol VARCHAR(10),
                 date DATE,
                 open NUMERIC,
