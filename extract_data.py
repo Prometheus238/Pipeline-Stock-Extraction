@@ -4,6 +4,7 @@ import yfinance as yf
 import psycopg2
 import pandas as pd
 import numpy as np
+from datetime import datetime, timedelta
 
 def get_stock_data(symbols, start_date, end_date):
     all_data = {}
@@ -76,9 +77,13 @@ def insert_parsed_json(cursor, stock_data):
 
 
 if __name__ == "__main__":
+
+    # Calculate date range
+    end_date = datetime.today().strftime('%Y-%m-%d')
+    start_date = (datetime.today() - timedelta(days=30)).strftime('%Y-%m-%d')
+
+    print(f"Fetching stock data from {start_date} to {end_date}...")
     stock_symbols = ["AAPL", "MSFT", "META", "NVDA", "GOOG", "AMZN", "INTC", "CRM", "TSM", "AMD"]
-    start_date = "2025-01-01"
-    end_date = "2025-07-31"
 
     stock_data = get_stock_data(stock_symbols, start_date, end_date)
 
